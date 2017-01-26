@@ -1,0 +1,775 @@
+/* -------------------------------------------------------------------------- */
+/* -----------------------------General Styles------------------------------- */
+/* -------------------------------------------------------------------------- */
+html
+{
+    /*stupid ie scrollbars*/
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+html, body, #map
+{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+body
+{
+    padding-top: 214px;
+    padding-bottom: 25px;
+    font-size: 16px;
+}
+
+#mobile-indicator
+{
+    display: block;
+}
+
+@media (min-width: 768px)
+{ 
+    #mobile-indicator
+    {
+        display: none;
+    }
+}
+
+#info-button
+{
+    position: absolute;
+    top: 40px;
+    right: 25px;
+    color: #fff;
+}
+
+#twitter-button
+{
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    color: #fff;
+}
+
+#facebook-button
+{
+    position: absolute;
+    top: 55px;
+    left: 25px;
+    color: #fff;
+}
+
+footer .visible-xs>a
+{
+    text-decoration: none;
+}
+
+.popover
+{
+    border-radius: 2px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ---------------------------------Search----------------------------------- */
+/* -------------------------------------------------------------------------- */
+#search-panel
+{
+    position: absolute;
+    margin-bottom: 0px;
+    z-index: 36;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    color: #fff;
+    background-color: #db5927;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px; 
+    border: none;
+    text-align: center;
+    box-shadow: 0 7px 15px rgba(0,0,0,.6);
+    border-radius: 0;
+}
+
+#search-panel>.panel-body
+{
+    overflow-y: auto;
+    padding: 0;
+}
+
+#search-panel h2
+{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#search-panel .btn-lg
+{
+    height: 46px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 2px; 
+}
+
+#search-panel input
+{
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px; 
+}
+
+.form-control:focus
+{
+    border-color: #FFEB3B;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #FFEB3B;
+}
+
+.btn-default:hover 
+{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #FFEB3B;
+}
+
+.btn-default.focus, .btn-default:focus 
+{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #FFEB3B;
+    outline: 0;
+}
+
+#search-panel .container-fluid
+{
+    text-align: center;
+}
+
+#searchbox, .hint
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding-right: 55px;
+}
+
+#searchbox
+{
+    background-color: transparent;
+    z-index: 22;
+}
+
+.hint
+{
+    color: #aaaaaa;
+    z-index: 21;
+}
+
+#searchbtn
+{
+    z-index: 23;
+}
+
+.search
+{
+    width: 90%;
+    display: inline-block;
+    padding: 10px 0 20px;
+}
+
+.search h4
+{
+    margin-top: 5px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.search h4 small 
+{
+    color: #fff;
+}
+
+.results-card
+{
+    padding-left: 30px;
+    padding-right: 30px;
+    border: none;
+    background-color: rgba(14, 44, 78, 0.0);
+}
+
+.jumbotron
+{
+    background-size: cover;
+    border-radius: 2px !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    background-color: #444;
+}
+
+.logo
+{
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.jumbotron h1, small
+{
+    text-indent: -99999px;
+    height: 0px;
+    margin:0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ------------------------------Footer-------------------------------------- */
+/* -------------------------------------------------------------------------- */
+footer 
+{
+    display: table;
+    position: absolute;
+    bottom: 0;
+    background: #db5927;
+    width: 100%;
+    height: 25px;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    line-height: 25px;
+    box-shadow: 0 -3px 15px rgba(0,0,0,.6);
+}
+
+footer div 
+{
+    display: table-cell;
+    vertical-align: middle;
+    height:100%;
+}
+
+footer a 
+{
+    color: #fff;
+    text-decoration: underline;
+}
+
+footer a:hover 
+{
+    color: #fff;
+    text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ---------------------------Info Panel Styles------------------------------ */
+/* -------------------------------------------------------------------------- */
+#infopanel
+{
+    position: absolute;
+    margin-bottom: 0px;
+    z-index: 51;
+    top: 245px;
+    left: 7%; /* edited by eo */
+    width: 86%; /* edited by eo */
+    border: 1px solid transparent;
+    box-shadow: 0 -1px 1px rgba(0,0,0,0.15), 0 2px 3px rgba(0,0,0,0.25);
+    color: #000000;
+    background-color: rgba(68,68,68, .9);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+#infopanel .panel-body
+{
+    height: 600px;
+    overflow-y: auto;
+}
+
+#infopanel>.panel-body
+{
+    padding: 40px; /* edited by eo */
+}
+
+#infopanel .well
+{
+    border-radius: 2px;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    border-radius: 2px;
+    margin-bottom: 0;
+    padding: 15px 0 5px 0;
+}
+
+#info-close
+{
+    color: #e9e9e9;
+    z-index: 37;
+    position: absolute;
+    right: 40px;
+    top: 25px;
+}
+
+#info-close:focus #info-close:hover
+{
+    color: #e9e9e9;
+}
+
+#copybutton
+{
+    margin-left: -15px;
+    background-color: #db5927;
+    color: #ffffff;
+    border-radius: 2px;
+    width: 141px;
+}
+
+#copyhidden
+{
+    margin-left: -15px;
+    margin-top: 2px;
+}
+
+#copytext
+{
+    height: 30px;
+    width: 141px;
+    font-size: 12px;
+    padding: 6px;
+}
+
+@media (max-width: 767px)
+{
+    #info-close
+    {
+        opacity: 0.75;
+    }
+}
+
+@media (min-width: 768px)
+{
+    .row-eq-height
+    {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+
+#infopanel .col-sm-4
+{
+    margin-bottom: 10px;
+}
+
+.panel .col-sm-6
+{
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 5px;
+    background-color: rgba(3, 34, 70, 0.25);
+}
+
+@media (min-width: 768px)
+{
+    .left-col
+    {
+        margin-right: 2px;
+    }
+
+    .right-col
+    {
+        margin-left: 2px;
+    }
+}
+
+#info-surface-holder.well
+{
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+#info-subsurface-holder.well
+{
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+.dl-horizontal dt
+{
+    font-weight: normal;
+    font-style: italic;
+}
+
+.dl-horizontal dd
+{
+    margin-left: 1em;
+}
+
+@media (min-width: 768px)
+{
+    .dl-horizontal dt
+    {
+        width: 42%;
+        padding-right: 3px;
+    }
+
+    .dl-horizontal dd
+    {
+        margin-left: 46%
+    }
+}
+
+.panel h5
+{
+    font-style: italic;
+}
+
+.row h4
+{
+    font-weight: bold;
+}
+
+.panel h3
+{
+    font-weight: bold;
+}
+
+.panel a
+{
+    color: #7398b7;
+    -moz-text-decoration-line: underline;
+    -moz-text-decoration-style: dotted;
+    -webkit-text-decoration-line: underline;
+    -webkit-text-decoration-style: dotted;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+
+.panel a:hover, .panel a:focus
+{
+    color: #337ab7;
+    text-decoration: underline;
+}
+
+.panel a:focus
+{
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.help
+{
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    border: 0;
+}
+
+#infopanel .row
+{
+    background-color: #fff /* rgba(3, 34, 70, 1.0) edited by eo */;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+#infopanel h3
+{
+    margin: 0;
+}
+
+h3 small 
+{
+    color: #555;
+}
+
+.well h4:first-child 
+{
+    margin-top: 0;
+}
+
+#infopanel #info-disclaimer
+{
+    margin-bottom: 5px;
+}
+
+#info-close
+{
+    z-index: 52;
+    position: absolute;
+    height: auto;
+    line-height: 0;
+    top: 20px;
+    right: 10px;
+    color: #cdcdcd;
+    opacity: 1;
+    text-shadow: 0 1px 0 #000;
+}
+
+#info-close span
+{
+    font-size: 60px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ------------------------------Map Legend---------------------------------- */
+/* -------------------------------------------------------------------------- */
+#mapcontrols
+{
+    z-index: 50;
+    position: absolute;
+    top: 244px;
+    left: 0px;
+    height: 60%;
+    width: 320px;
+    padding-right: 40px;
+    overflow-y: auto;
+    background-color: rgba(233, 233, 244, 0.80);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 2px;
+    -webkit-transition: left .30s linear; /* Safari */
+    transition: left .30s linear;
+    overflow-x: hidden;
+}
+
+#mapcontrols.slide-hide
+{
+    left: -285px;
+}
+
+@media (max-width: 768px)
+{
+    #mapcontrols
+    {
+        width: 320px;
+    }
+
+    #mapcontrols.slide-hide
+    {
+        left: -280px;
+    }
+}
+
+#mapctrl-toggle 
+{
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    z-index: 45;
+    height: 200px;
+    cursor: pointer;
+    height: 98%;
+}
+
+#mapctrl-close 
+{
+    font-size: 45px;
+    -webkit-transition: all 0.3s ease 0s; /* Safari */
+    transition: all 0.3s ease 0s;
+}
+
+#mapctrl-text 
+{
+    position: absolute;
+    top: 110px;
+    right: -46px;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    font-size: 20px;
+    display: block;
+    width: 130px;
+    -webkit-transition: all 0.2s ease 0s; /* Safari */
+    transition: all 0.2s ease 0s;
+}
+
+#mapctrl-toggle:hover #mapctrl-close,
+#mapctrl-toggle:hover #mapctrl-text 
+{
+    color: #db5927;
+}
+
+.collapse.width
+{
+    height: auto;
+    -webkit-transition: width 0.45s ease;
+    -moz-transition: width 0.45s ease;
+    -o-transition: width 0.45s ease;
+    transition: width 0.45s ease;
+}
+
+.layer-legend
+{
+    list-style-type: none;
+    padding: 4px;
+}
+
+#layer-control
+{
+    list-style-type: none;
+    padding: 4px;    
+}
+
+#layer-control .btn 
+{
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+#layer-control .btn[aria-pressed="true"] 
+{
+    background: #83c339;
+    color: #fff;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ---------------------------------Mobile XS----------------------------------- */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px)
+{
+    .logo 
+    {
+        max-width: 50%;
+        margin: 0;
+    }
+    
+    #info-button 
+    {
+        top: 20px;
+        font-size: 14px;
+    }
+
+    .search h4 
+    {
+        font-size: 14px;
+    }
+    
+    .search p,
+    .search h4 small 
+    {
+        font-size: 12px;
+    }
+    
+    .search .input-lg 
+    {
+        font-size: 14px;
+    }
+
+    #infopanel .panel-body 
+    {
+        padding: 40px 15px;
+    }
+    
+    .panel h3 
+    {
+        font-size: 20px;
+    }
+
+    footer
+    {
+        font-size: 15px;
+        height: 30px;
+        line-height: 1.1;
+        padding: 2px 0;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* ---------------------------------Modals----------------------------------- */
+/* -------------------------------------------------------------------------- */
+.modal-content
+{
+    border-radius: 2px;
+}
+
+.modal .btn
+{
+    border-radius: 2px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* -----------------------------ESRI Overrides------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* Probably shouldn't do this */
+.esriAttribution
+{
+    display: none;
+}
+
+/* Taken from https://github.com/Esri/dojo-theme-flat */
+.esriSimpleSlider
+{
+    position: absolute;
+    text-align: center;
+    border: 0 none;
+    background: #f5f5f5;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 2px;
+    box-shadow: 0 -1px 1px rgba(0,0,0,0.15), 0 2px 3px rgba(0,0,0,0.25);
+}
+
+.esriSimpleSlider div
+{
+    background: #f5f5f5;
+    width: 30px;
+    height: 30px;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    text-decoration: inherit;
+    vertical-align: bottom;
+    font-size: 0;
+    line-height: 30px;
+    border: 0 none;
+    padding: 0;
+    user-select: none;
+}
+
+.esriSimpleSlider div:hover
+{
+    background: #e9e9e9;
+}
+
+.esriSimpleSlider div:active
+{
+    background: #ddd;
+}
+
+.esriSimpleSlider div.disabled,
+.esriSimpleSlider div.disabled:hover,
+.esriSimpleSlider div.disabled:active
+{
+    opacity: 0.65;
+}
+
+.esriSimpleSlider .esriSimpleSliderIncrementButton:before
+{
+    content: "\f067";
+    font-size: 14px;
+}
+
+.esriSimpleSlider .esriSimpleSliderDecrementButton:before
+{
+    content: "\f068";
+    font-size: 14px;
+}
+
+.esriSimpleSliderTR
+{
+    right: 15px;
+    top: 15px;
+}
+
+.esriSimpleSliderTL
+{
+    left: 15px;
+    top: 15px;
+}

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="favicon.ico">
+
+        <title>RoadWork</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+        <!-- clipboard.js v1.5.16 (https://zenorocha.github.io/clipboard.js) Licensed MIT © Zeno Rocha -->
+        <script src="js/clipboard.min.js"></script>
+
+        <!-- ESRI Map CSS and JS -->
+        <link rel="stylesheet" href="https://js.arcgis.com/3.18/esri/css/esri.css">
+        <script src="https://js.arcgis.com/3.18/"></script>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <!-- Make it Pretty -->
+        <link href="css/roadwork.css" rel="stylesheet">
+
+        <!-- Android Stuff -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" href="images/icons/rw_icon_192.png">
+
+        <!-- iOS Stuff -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon" href="images/icons/rw_icon_076.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/icons/rw_icon_076.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/icons/rw_icon_120.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/icons/rw_icon_152.png">
+        <link rel="apple-touch-icon" sizes="167x167" href="images/icons/rw_icon_167.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/icons/rw_icon_180.png">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div id="search-panel" class="panel panel-default" tabindex="-1">
+            <div class="panel-body">
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1>RoadWork <small>Block-by-Block Construction Information for the City of New Orleans</small></h1>
+                        <img src="images/roadwork_big_white.png" alt="RoadWork" class="logo hidden-print"/>
+                    </div>
+                    <a href="#" data-toggle="modal" data-target="#about-modal" id="info-button">
+                        About<span class="hidden-xs"> RoadWork</span>
+                    </a>
+                    <a href="https://twitter.com/roadworknola" class="hidden-xs" id="twitter-button">
+                        <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.facebook.com/Roadworknola-186632815082078/" id="facebook-button" class="hidden-xs" id="facebook-button">
+                        <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="search-card container-fluid">
+                    <div class="search">
+                        <h4>Get Started Here! <small class="hidden-xs">Enter an address to get block-to-block details on construction projects</small></h4>
+                        <div class="input-group">
+                            <div class="stack">
+                                <input type="text" id="searchbox" class="form-control" list="candidates" placeholder="e.g., 200 N Claiborne Ave, New Orleans LA" autocomplete="off">
+                                <datalist id="candidates"></datalist>
+                                <input type="text" class="form-control hint" autocomplete="off">
+                            </div>
+                            <div class="input-group-btn">
+                                <button type="button" id="searchbtn" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="infopanel" class="panel panel-default collapse" aria-expanded="false">
+            <span id="info-close" class="glyphicon glyphicon-remove close" aria-hidden="true"></span>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div id="row-location" class="row">
+                        <div class="col-sm-12">
+                            <div id="info-location" class="geninfo well"></div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="info-condition" class="well geninfo"></div>
+                            <div id="nocond" class="well" style="display: none;"><h4>Pavement Condition</h4><div class="indent"><a href="#" data-toggle="modal" data-target="#condition-modal">Not Surveyed</a></div></div>
+                        </div>
+                    </div>
+
+                    <div id="row-project" class="row">
+                        <div class="col-sm-12"><div class="well"><h3>Work Status</h3></div></div>
+                        <div class="col-sm-4">
+                            <div id="info-project" class="well workinfo"></div>
+                            <div id="noproject" class="well workinfo" style="display: none;">
+                                <h4>Project</h4>
+                                <div class="indent"><h5>Future Roadwork Pending</h5></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div id="info-surface-holder" class="well workinfo">
+                                <h4>Street Repair Work</h4>
+                                <div id="info-surface"></div>
+                                <div id="nosurface" style="display: none;">
+                                    <div class="indent">
+                                        <h5>
+                                            <a href="#" data-toggle="modal" data-target="#repairtype-modal">Future Roadwork Pending</a>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div id="info-subsurface-holder" class="well workinfo">
+                                <h4>Water, Sewer, and Drainage Work</h4>
+                                <div id="info-subsurface"></div>
+                                <div id="nosubsurface" style="display: none;">
+                                    <div class="indent"><h5>Future Roadwork Pending</h5></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="row-permits" class="row">
+                        <div class="col-xs-12">
+                            <div id="info-permits-holder" class="well workinfo">
+                                <h4>Permitted Street Closures</h4>
+                                <div id="info-permits"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="row-disclaimer" class="row">
+                        <div class="col-xs-12">
+                            <div id="disclaimer" class="well"><strong>PLEASE NOTE:</strong><em> The content provided on roadwork.nola.gov is subject to change pending unforeseen site conditions, weather delays, constructability issues, etc.</em></div>
+                        </div>
+                    </div>
+                    <div id="copylink">
+                        <button id="copybutton" class="btn btn-default btn-sm" type="button">Get a Link to This Info</button>
+                        <div id="copyhidden" class="collapse">
+                            <input id="copytext" type="text" autocomplete="off" aria-label="link to this info">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="mapcontrols" class="panel panel-default width slide-show">
+            <div id="mapctrl-toggle">
+                <span id="mapctrl-close" class="glyphicon glyphicon-chevron-left" aria-hidden="true" data-toggle="slide" data-target="#mapcontrols"></span>
+                <span id="mapctrl-text">Hide legend</span>
+            </div>
+            <div class="panel-body" style="overflow-y: auto; height: 95%;">
+                <div id="layerarea" class="">
+                    <h3>Show Layer</h3>
+                    <div id="layer-control"></div>
+                </div>
+                <div id="legendarea" class="">
+                    <h3>Legend</h3>
+                    <div id="legend"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="map"></div>
+        <footer>
+            <div>
+                <span class="hidden-xs">
+                    Questions or concerns about our Capital Improvement Program in your area may be directed to <a href="mailto:roadwork@nola.gov" title="Email us your questions or concerns!">roadwork@nola.gov</a> or 504-658-ROAD (7623).
+                </span>
+                <span class="visible-xs">
+                    Questions?&nbsp;
+                    <a href="mailto:roadwork@nola.gov" title="Email us your questions or concerns!">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </a>&nbsp;
+                    <a target="_blank" href="https://twitter.com/roadworknola">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>&nbsp;
+                    <a target="_blank" href="https://www.facebook.com/Roadworknola-186632815082078/">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </a>&nbsp;or&nbsp;call&nbsp;504-658-ROAD
+                </span>
+            </div>
+        </footer>
+
+        <div id="mobile-indicator"></div>
+        <!-- ====================== Modals ================================= -->
+        <div id="about-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h2 class="modal-title" id="myModalLabel"><img src="images/blue_fleur.png" alt="City of New Orleans">&nbsp;&nbsp;<img src="images/logo.png" alt="RoadWork"></h2>
+                    </div>
+                    <div class="modal-body">
+                        <h2>Thanks for visiting RoadWork!</h2>
+                        <p>
+                            RoadWork shows block-by-block details on planned, active, and complete construction projects and permitted road closures.
+                        </p>
+                        <ol>
+                            <li><strong>Search for an address</strong> using the search box</li>
+                            <li><strong>Click the map</strong> to view info about a particular street</li>
+                            <li><strong>Show or hide map layers</strong> in the map controls</li>
+                        </ol>
+                        <h3>Frequently Asked Questions</h3>
+                        <p>
+                            If you're curious about the app, the data, or the Capital Improvement Program in general, 
+                            you can read the <a target="_blank" href="http://www.nola.gov/dpw/documents/roadwork/roadwork-faq.pdf">list of frequently asked questions</a> (and their answers).  
+                            You can also contact us directly at <a href="mailto:roadwork@nola.gov" title="Email us your questions or concerns!">roadwork@nola.gov</a>, 
+                            <a target="_blank" href="https://twitter.com/roadworknola">Twitter</a>, 
+                            <a target="_blank" href="https://www.facebook.com/Roadworknola-186632815082078/">Facebook</a>, 
+                            or by phone at 504-658-ROAD (7623).
+                        </p>
+                        <h3>Download the data</h3>
+                        <ul>
+                            <li><a href="http://portal.nolagis.opendata.arcgis.com/datasets/49fbb25d70a0406aa927ce0df3e68e84_2?geometry=-90.757%2C29.807%2C-89.189%2C30.164" target="_blank">Department of Public Works Construction Projects</a></li>
+                            <li><a href="http://portal.nolagis.opendata.arcgis.com/datasets/144f1e800ac74981b25666c55348dfc1_3?geometry=-90.395%2C29.905%2C-89.611%2C30.084" target="_blank">Sewerage &amp; Water Board Construction Projects</a></li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="pull-left" href="http://www.nola.gov/dpw/" target="_blank"><img src="images/dpw.png" alt="City of New Orleans Department of Public Works"></a>
+                        <a class="pull-left" href="https://www.swbno.org/" target="_blank"><img src="images/swb.png" alt="Sewerage and Water Board of New Orleans"></a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Get started</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="condition-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Pavement Condition</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            To inform our decisions as to which streets were most
+                            in need of work, a pavement survey was conducted, and
+                            each block was given one of the following scores:
+                        </p>
+                        <ul>
+                            <li><strong>Excellent:</strong> New pavement, with no need for repair.</li>
+                            <li><strong>Good:</strong> No major defects were found in the pavement.</li>
+                            <li><strong>Fair:</strong> Minor paving problems were found that do not impact driving.</li>
+                            <li><strong>Poor:</strong> Defects in the pavement can affect driving on these streets.</li>
+                            <li><strong>Very Poor:</strong> Medium-sized defects were found, moderately affecting driving.</li>
+                            <li><strong>Failure:</strong> Large pieces of pavement are missing, and driving is severly impacted.</li>
+                            <li><strong>Not Surveyed:</strong>Survey information is unavailable as these streets were either under construction during the pavement assessment or they are maintained by the State.  For questions related to streets in Orleans Parish that are maintained by the State, please contact the Department of Transportation and Development Public Information Office at 1-877-452-3683.</li>
+                        </ul>
+                        <p>
+                            You can also <a href="http://www.nola.gov/dpw/documents/roadwork/pavement-assessment-fact-sheet/" target="_blank">download a fact sheet</a> with more detailed information about each category. <!-- , or <a href="#" target="_blank">download the full report</a> (over 400 pages). -->
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="repairtype-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Types of Repairs</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Depending on the condition of the road surface and 
+                            the types of water, sewer, or drainage work that 
+                            may be required, the type of street repairs could be
+                            one of the following:
+                        </p>
+                        <ul>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/full-depth-reconstruction-fact-sheet/" target="_blank"><strong>Full Reconstruction:</strong></a> Repair sewerage, water, and drainage lines, rebuild the street entirely, and repair sidewalks and curbs.</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/patch-mill-and-overlay-fact-sheet/" target="_blank"><strong>Patch Mill / Overlay:</strong></a> Repave the asphalt roadway from curb to curb and repair damaged sidewalks.</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/patch-concrete-fact-sheet/" target="_blank"><strong>Patch Concrete:</strong></a> Remove damaged portions of the concrete roadway and replace it with new smooth concrete pavement.</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/incidental-road-repairs-fact-sheet/" target="_blank"><strong>Incidental Road Repairs:</strong></a> Remove damaged portions of the asphalt roadway and replace it with new smooth pavement.</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/non-paving-incidentals-fact-sheet/" target="_blank"><strong>Non-Paving Incidentals:</strong></a> Repair damaged sidewalks, driveway aprons and curbs within the public right-of-way.</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/streetscape-fact-sheet/" target="_blank"><strong>Streetscape:</strong></a> Landscaping and other aesthetic improvements such as neighborhood signage and lighting.</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/bridges-fact-sheet/" target="_blank"><strong>Bridge Repairs:</strong></a> Replace, restore or rehabilitate bridges over the City’s waterways and roadways</li>
+                            <li><a href="http://www.nola.gov/dpw/documents/roadwork/future-roadwork-pending-fact-sheet/" target="_blank"><strong>Future Road Work Pending:</strong></a> Work may occur in the future, as more funding becomes available.</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact-us-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Questions? Concerns? Please, Get in Touch!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Question or concerns about our Capital Improvement Program in your area may be directed to <a href="mailto:roadwork@nola.gov?Subject=Capital%20Improvement%20Program" target="_top">roadwork@nola.gov</a>.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <!-- clipboard.js v1.5.16 (https://zenorocha.github.io/clipboard.js) Licensed MIT © Zeno Rocha -->
+        <!-- <script src="js/clipboard.min.js"></script> -->
+        <script src="js/roadwork.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>
